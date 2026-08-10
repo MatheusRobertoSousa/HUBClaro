@@ -1,0 +1,31 @@
+{
+  "name": "claro-hub-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HUB de convergencia conversacional com IA para atendimento Claro.",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c red,cyan \"npm run dev:server\" \"npm run dev:web\"",
+    "dev:server": "npm --workspace server run dev",
+    "dev:web": "npm --workspace web run dev",
+    "tunnel:webhook": "npx localtunnel --port 3333 --local-host localhost",
+    "build": "npm --workspaces run build",
+    "lint": "npm --workspaces run lint",
+    "db:setup": "npm --workspace server run db:setup",
+    "prisma:generate": "npm --workspace server run prisma:generate",
+    "prisma:migrate": "npm --workspace server run prisma:migrate",
+    "seed": "npm --workspace server run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "openai": "^7.4.0"
+  }
+}

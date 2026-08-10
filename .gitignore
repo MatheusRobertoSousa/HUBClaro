@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+.env.local
+*.log
+*.tsbuildinfo
+server/prisma/dev.db
+server/prisma/dev.db-journal
+web/.vite
