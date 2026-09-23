@@ -1,0 +1,64 @@
+@apiUrl = https://clarohub-matheus-156973.azurewebsites.net
+# Configure DEMO_PASSWORD no ambiente do REST Client. Nao salve a senha neste arquivo.
+@token = {{login.response.body.$.token}}
+@ticketId = {{consulta.response.body.$.tickets[0].id}}
+
+### Infraestrutura e acesso ao banco
+GET {{apiUrl}}/api/health
+
+### Arquitetura executada pela API
+GET {{apiUrl}}/api/health/architecture
+
+### Autenticacao (solicitacao de dados do usuario + emissao JWT)
+# @name login
+POST {{apiUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@claro.com.br",
+  "password": "{{$processEnv DEMO_PASSWORD}}"
+}
+
+### GRAVACAO: cria cliente, chamado, mensagem e sugestao da IA
+# @name gravacao
+POST {{apiUrl}}/api/integrations/public/message
+Content-Type: application/json
+
+{
+  "channel": "SITE",
+  "subject": "Instabilidade na internet Claro",
+  "body": "Minha internet esta lenta e preciso de suporte.",
+  "customer": {
+    "name": "Cliente Demonstracao",
+    "phone": "5511999999998",
+    "email": "cliente.azure@example.com"
+  }
+}
+
+### LEITURA: consulta os dados persistidos (use o protocolo retornado acima)
+# @name consulta
+GET {{apiUrl}}/api/tickets?q={{gravacao.response.body.$.protocol}}
+Authorization: Bearer {{token}}
+
+### LEITURA AGREGADA: metricas calculadas no banco
+GET {{apiUrl}}/api/tickets/metrics/summary
+Authorization: Bearer {{token}}
+
+### GRAVACAO autenticada: adiciona mensagem ao chamado
+POST {{apiUrl}}/api/tickets/{{ticketId}}/messages
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "body": "Vamos verificar sua conexao e acompanhar a normalizacao do servico.",
+  "sendToChannel": false
+}
+
+### GRAVACAO autenticada: altera status
+PATCH {{apiUrl}}/api/tickets/{{ticketId}}/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "PENDING"
+}

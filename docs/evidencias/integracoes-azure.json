@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-09-17T09:22:12.929Z",
+  "webhook": {
+    "validTokenStatus": 200,
+    "invalidTokenStatus": 403,
+    "challengeMatched": true
+  },
+  "metaReadOnly": {
+    "status": 401,
+    "credentialAccepted": false,
+    "errorCode": 190,
+    "errorSubcode": 463
+  },
+  "messagesSent": 0,
+  "deliveryVerified": false
+}

@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "start": "node dist/src/index.js",
+    "start:azure": "prisma generate --schema prisma/azure/schema.prisma && prisma migrate deploy --schema prisma/azure/schema.prisma && node dist/prisma/seed.js && npm start",
     "build": "tsc -p tsconfig.json",
     "lint": "tsc --noEmit -p tsconfig.json",
     "prisma:generate": "prisma generate",
+    "prisma:generate:azure": "prisma generate --schema prisma/azure/schema.prisma",
     "prisma:migrate": "prisma migrate dev --name init || tsx prisma/init-db.ts",
     "db:setup": "tsx prisma/init-db.ts",
     "seed": "tsx prisma/seed.ts"
@@ -22,6 +25,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "prisma": "^6.13.0",
     "socket.io": "^4.7.5",
     "zod": "^3.23.8"
   },
@@ -32,7 +36,6 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.2",
-    "prisma": "^6.13.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }

@@ -2,6 +2,7 @@ import { Channel, SenderType, TicketStatus } from "@prisma/client";
 import { Router } from "express";
 import { z } from "zod";
 import { env } from "../lib/env.js";
+import { HttpError } from "../lib/httpError.js";
 import { prisma } from "../lib/prisma.js";
 import { authenticate } from "../middleware/auth.js";
 import { generateAiSuggestion, getAiConfiguration } from "../services/aiService.js";
@@ -93,7 +94,7 @@ integrationsRouter.post("/whatsapp/test-send", authenticate, async (req, res, ne
       whatsapp: getWhatsAppConfiguration()
     });
   } catch (error) {
-    next(error);
+    next(mapWhatsAppOutboundError(error));
   }
 });
 
@@ -127,7 +128,7 @@ integrationsRouter.post("/whatsapp/test-template", authenticate, async (req, res
       whatsapp: getWhatsAppConfiguration()
     });
   } catch (error) {
-    next(error);
+    next(mapWhatsAppOutboundError(error));
   }
 });
 
@@ -229,6 +230,41 @@ function extractWhatsAppStatuses(payload: unknown) {
   }
 
   return statuses;
+}
+
+function mapWhatsAppOutboundError(error: unknown) {
+  if (!(error instanceof Error)) {
+    return error;
+  }
+
+  const message = error.message;
+  if (!message.startsWith("Falha ao enviar")) {
+    return error;
+  }
+
+  const statusMatch = message.match(/WhatsApp (\d+):/);
+  const statusCode = statusMatch ? Number(statusMatch[1]) : 502;
+  const metaMessage = extractMetaErrorMessage(message);
+
+  if (statusCode === 401) {
+    return new HttpError(502, `Falha na autenticacao do WhatsApp Cloud API: ${metaMessage ?? "token de acesso invalido ou expirado."}`);
+  }
+
+  return new HttpError(502, `Falha ao enviar mensagem pelo WhatsApp: ${metaMessage ?? "verifique a configuracao da integracao."}`);
+}
+
+function extractMetaErrorMessage(message: string) {
+  const jsonStart = message.indexOf("{");
+  if (jsonStart === -1) {
+    return null;
+  }
+
+  try {
+    const payload = JSON.parse(message.slice(jsonStart)) as { error?: { message?: string } };
+    return payload.error?.message ?? null;
+  } catch {
+    return null;
+  }
 }
 
 const publicMessageSchema = z.object({

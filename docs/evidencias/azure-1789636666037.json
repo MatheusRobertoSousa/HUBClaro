@@ -1,0 +1,524 @@
+{
+  "apiUrl": "https://clarohub-matheus-156973.azurewebsites.net",
+  "timestamp": "2026-09-17T09:17:44.169Z",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "status": 200,
+      "response": {
+        "ok": true,
+        "service": "claro-hub-ai",
+        "environment": "production",
+        "database": "Azure Database for PostgreSQL",
+        "timestamp": "2026-09-17T09:17:44.834Z"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/health/architecture",
+      "status": 200,
+      "response": {
+        "frontend": "React + Vite + TypeScript / arquivos estaticos no Azure App Service",
+        "backend": "Node.js + Express + TypeScript + Prisma / Azure App Service",
+        "database": "Azure Database for PostgreSQL / Prisma ORM",
+        "realtime": "Socket.IO sobre WebSocket",
+        "flow": [
+          "Browser",
+          "REST/HTTPS ou WebSocket",
+          "Express API",
+          "Prisma ORM",
+          "Banco relacional"
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets",
+      "status": 401,
+      "response": {
+        "message": "Token de acesso ausente."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/integrations/public/message",
+      "status": 400,
+      "response": {
+        "message": "Dados inválidos.",
+        "issues": {
+          "formErrors": [],
+          "fieldErrors": {
+            "channel": [
+              "Invalid enum value. Expected 'SITE' | 'APP', received 'INVALID'"
+            ],
+            "body": [
+              "Required"
+            ],
+            "customer": [
+              "Required"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "check": "Socket anonimo rejeitado",
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/integrations/public/message",
+      "status": 201,
+      "response": {
+        "protocol": "CLARO-MU5BGP6O"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets?q=CLARO-MU5BGP6O",
+      "status": 200,
+      "response": {
+        "tickets": [
+          {
+            "id": "cmu5bgp6r0002quizsnepxl42",
+            "protocol": "CLARO-MU5BGP6O",
+            "channel": "SITE",
+            "subject": "Demo Azure 1789636666037",
+            "summary": "Cliente abriu uma solicitação geral que precisa de validação do atendente.",
+            "status": "OPEN",
+            "priority": "MEDIUM",
+            "aiConfidence": 0.72,
+            "tags": "[\"geral\"]",
+            "externalRef": null,
+            "createdAt": "2026-09-17T09:17:45.988Z",
+            "updatedAt": "2026-09-17T09:17:54.988Z",
+            "lastMessageAt": "2026-09-17T09:17:45.995Z",
+            "customerId": "cmu5bgp5x0000quiz6mnto0mm",
+            "assignedToId": null,
+            "customer": {
+              "id": "cmu5bgp5x0000quiz6mnto0mm",
+              "name": "Cliente Demo 1789636666037",
+              "phone": "5511936666037",
+              "email": "demo.1789636666037@example.com",
+              "claroId": null,
+              "cpfCnpj": null,
+              "createdAt": "2026-09-17T09:17:45.958Z",
+              "updatedAt": "2026-09-17T09:17:45.958Z"
+            },
+            "assignedTo": null,
+            "messages": [
+              {
+                "id": "cmu5bgp8n0004quizrw2s2nov",
+                "ticketId": "cmu5bgp6r0002quizsnepxl42",
+                "senderType": "CUSTOMER",
+                "body": "Minha internet Claro esta lenta e preciso de suporte.",
+                "metadata": "{\"sourceChannel\":\"SITE\"}",
+                "authorUserId": null,
+                "createdAt": "2026-09-17T09:17:45.995Z"
+              }
+            ],
+            "suggestions": [
+              {
+                "id": "cmu5bgw2y0006quiz1dcayf36",
+                "ticketId": "cmu5bgp6r0002quizsnepxl42",
+                "intent": "atendimento_geral",
+                "sentiment": "neutral",
+                "confidence": 0.72,
+                "suggestedReply": "Recebi sua solicitação. Vou analisar as informações e seguir com o atendimento pelo melhor caminho.",
+                "nextBestAction": "Revisar histórico do cliente, classificar motivo principal e responder no canal de origem.",
+                "createdAt": "2026-09-17T09:17:54.922Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tickets/cmu5bgp6r0002quizsnepxl42/assign",
+      "status": 200,
+      "response": {
+        "ticket": {
+          "id": "cmu5bgp6r0002quizsnepxl42",
+          "protocol": "CLARO-MU5BGP6O",
+          "channel": "SITE",
+          "subject": "Demo Azure 1789636666037",
+          "summary": "Cliente abriu uma solicitação geral que precisa de validação do atendente.",
+          "status": "OPEN",
+          "priority": "MEDIUM",
+          "aiConfidence": 0.72,
+          "tags": "[\"geral\"]",
+          "externalRef": null,
+          "createdAt": "2026-09-17T09:17:45.988Z",
+          "updatedAt": "2026-09-17T09:17:55.671Z",
+          "lastMessageAt": "2026-09-17T09:17:45.995Z",
+          "customerId": "cmu5bgp5x0000quiz6mnto0mm",
+          "assignedToId": "cmu5bgjml0000qui8lovrfdd5",
+          "customer": {
+            "id": "cmu5bgp5x0000quiz6mnto0mm",
+            "name": "Cliente Demo 1789636666037",
+            "phone": "5511936666037",
+            "email": "demo.1789636666037@example.com",
+            "claroId": null,
+            "cpfCnpj": null,
+            "createdAt": "2026-09-17T09:17:45.958Z",
+            "updatedAt": "2026-09-17T09:17:45.958Z"
+          },
+          "assignedTo": {
+            "id": "cmu5bgjml0000qui8lovrfdd5",
+            "name": "Admin Claro",
+            "email": "admin@claro.com.br",
+            "role": "ADMIN"
+          },
+          "messages": [
+            {
+              "id": "cmu5bgp8n0004quizrw2s2nov",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "CUSTOMER",
+              "body": "Minha internet Claro esta lenta e preciso de suporte.",
+              "metadata": "{\"sourceChannel\":\"SITE\"}",
+              "authorUserId": null,
+              "createdAt": "2026-09-17T09:17:45.995Z"
+            },
+            {
+              "id": "cmu5bgwok0008quiz6o0s86ez",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "SYSTEM",
+              "body": "Chamado atribuído.",
+              "metadata": null,
+              "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+              "createdAt": "2026-09-17T09:17:55.700Z"
+            }
+          ],
+          "suggestions": [
+            {
+              "id": "cmu5bgw2y0006quiz1dcayf36",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "intent": "atendimento_geral",
+              "sentiment": "neutral",
+              "confidence": 0.72,
+              "suggestedReply": "Recebi sua solicitação. Vou analisar as informações e seguir com o atendimento pelo melhor caminho.",
+              "nextBestAction": "Revisar histórico do cliente, classificar motivo principal e responder no canal de origem.",
+              "createdAt": "2026-09-17T09:17:54.922Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tickets/cmu5bgp6r0002quizsnepxl42/messages",
+      "status": 201,
+      "response": {
+        "message": {
+          "id": "cmu5bgxsy000aquiz8rhfvbny",
+          "ticketId": "cmu5bgp6r0002quizsnepxl42",
+          "senderType": "AGENT",
+          "body": "Resposta do atendente 1789636666037: vamos verificar sua conexao.",
+          "metadata": "{\"sentToChannel\":false}",
+          "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+          "createdAt": "2026-09-17T09:17:57.151Z"
+        },
+        "ticket": {
+          "id": "cmu5bgp6r0002quizsnepxl42",
+          "protocol": "CLARO-MU5BGP6O",
+          "channel": "SITE",
+          "subject": "Demo Azure 1789636666037",
+          "summary": "Cliente abriu uma solicitação geral que precisa de validação do atendente.",
+          "status": "OPEN",
+          "priority": "MEDIUM",
+          "aiConfidence": 0.72,
+          "tags": "[\"geral\"]",
+          "externalRef": null,
+          "createdAt": "2026-09-17T09:17:45.988Z",
+          "updatedAt": "2026-09-17T09:17:57.165Z",
+          "lastMessageAt": "2026-09-17T09:17:57.151Z",
+          "customerId": "cmu5bgp5x0000quiz6mnto0mm",
+          "assignedToId": "cmu5bgjml0000qui8lovrfdd5",
+          "customer": {
+            "id": "cmu5bgp5x0000quiz6mnto0mm",
+            "name": "Cliente Demo 1789636666037",
+            "phone": "5511936666037",
+            "email": "demo.1789636666037@example.com",
+            "claroId": null,
+            "cpfCnpj": null,
+            "createdAt": "2026-09-17T09:17:45.958Z",
+            "updatedAt": "2026-09-17T09:17:45.958Z"
+          },
+          "assignedTo": {
+            "id": "cmu5bgjml0000qui8lovrfdd5",
+            "name": "Admin Claro",
+            "email": "admin@claro.com.br",
+            "role": "ADMIN"
+          },
+          "messages": [
+            {
+              "id": "cmu5bgp8n0004quizrw2s2nov",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "CUSTOMER",
+              "body": "Minha internet Claro esta lenta e preciso de suporte.",
+              "metadata": "{\"sourceChannel\":\"SITE\"}",
+              "authorUserId": null,
+              "createdAt": "2026-09-17T09:17:45.995Z"
+            },
+            {
+              "id": "cmu5bgwok0008quiz6o0s86ez",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "SYSTEM",
+              "body": "Chamado atribuído.",
+              "metadata": null,
+              "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+              "createdAt": "2026-09-17T09:17:55.700Z"
+            },
+            {
+              "id": "cmu5bgxsy000aquiz8rhfvbny",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "AGENT",
+              "body": "Resposta do atendente 1789636666037: vamos verificar sua conexao.",
+              "metadata": "{\"sentToChannel\":false}",
+              "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+              "createdAt": "2026-09-17T09:17:57.151Z"
+            }
+          ],
+          "suggestions": [
+            {
+              "id": "cmu5bgw2y0006quiz1dcayf36",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "intent": "atendimento_geral",
+              "sentiment": "neutral",
+              "confidence": 0.72,
+              "suggestedReply": "Recebi sua solicitação. Vou analisar as informações e seguir com o atendimento pelo melhor caminho.",
+              "nextBestAction": "Revisar histórico do cliente, classificar motivo principal e responder no canal de origem.",
+              "createdAt": "2026-09-17T09:17:54.922Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/tickets/cmu5bgp6r0002quizsnepxl42/status",
+      "status": 200,
+      "response": {
+        "ticket": {
+          "id": "cmu5bgp6r0002quizsnepxl42",
+          "protocol": "CLARO-MU5BGP6O",
+          "channel": "SITE",
+          "subject": "Demo Azure 1789636666037",
+          "summary": "Cliente abriu uma solicitação geral que precisa de validação do atendente.",
+          "status": "CLOSED",
+          "priority": "MEDIUM",
+          "aiConfidence": 0.72,
+          "tags": "[\"geral\"]",
+          "externalRef": null,
+          "createdAt": "2026-09-17T09:17:45.988Z",
+          "updatedAt": "2026-09-17T09:17:57.207Z",
+          "lastMessageAt": "2026-09-17T09:17:57.151Z",
+          "customerId": "cmu5bgp5x0000quiz6mnto0mm",
+          "assignedToId": "cmu5bgjml0000qui8lovrfdd5",
+          "customer": {
+            "id": "cmu5bgp5x0000quiz6mnto0mm",
+            "name": "Cliente Demo 1789636666037",
+            "phone": "5511936666037",
+            "email": "demo.1789636666037@example.com",
+            "claroId": null,
+            "cpfCnpj": null,
+            "createdAt": "2026-09-17T09:17:45.958Z",
+            "updatedAt": "2026-09-17T09:17:45.958Z"
+          },
+          "assignedTo": {
+            "id": "cmu5bgjml0000qui8lovrfdd5",
+            "name": "Admin Claro",
+            "email": "admin@claro.com.br",
+            "role": "ADMIN"
+          },
+          "messages": [
+            {
+              "id": "cmu5bgp8n0004quizrw2s2nov",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "CUSTOMER",
+              "body": "Minha internet Claro esta lenta e preciso de suporte.",
+              "metadata": "{\"sourceChannel\":\"SITE\"}",
+              "authorUserId": null,
+              "createdAt": "2026-09-17T09:17:45.995Z"
+            },
+            {
+              "id": "cmu5bgwok0008quiz6o0s86ez",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "SYSTEM",
+              "body": "Chamado atribuído.",
+              "metadata": null,
+              "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+              "createdAt": "2026-09-17T09:17:55.700Z"
+            },
+            {
+              "id": "cmu5bgxsy000aquiz8rhfvbny",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "AGENT",
+              "body": "Resposta do atendente 1789636666037: vamos verificar sua conexao.",
+              "metadata": "{\"sentToChannel\":false}",
+              "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+              "createdAt": "2026-09-17T09:17:57.151Z"
+            }
+          ],
+          "suggestions": [
+            {
+              "id": "cmu5bgw2y0006quiz1dcayf36",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "intent": "atendimento_geral",
+              "sentiment": "neutral",
+              "confidence": 0.72,
+              "suggestedReply": "Recebi sua solicitação. Vou analisar as informações e seguir com o atendimento pelo melhor caminho.",
+              "nextBestAction": "Revisar histórico do cliente, classificar motivo principal e responder no canal de origem.",
+              "createdAt": "2026-09-17T09:17:54.922Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets/cmu5bgp6r0002quizsnepxl42",
+      "status": 200,
+      "response": {
+        "ticket": {
+          "id": "cmu5bgp6r0002quizsnepxl42",
+          "protocol": "CLARO-MU5BGP6O",
+          "channel": "SITE",
+          "subject": "Demo Azure 1789636666037",
+          "summary": "Cliente abriu uma solicitação geral que precisa de validação do atendente.",
+          "status": "CLOSED",
+          "priority": "MEDIUM",
+          "aiConfidence": 0.72,
+          "tags": "[\"geral\"]",
+          "externalRef": null,
+          "createdAt": "2026-09-17T09:17:45.988Z",
+          "updatedAt": "2026-09-17T09:17:57.207Z",
+          "lastMessageAt": "2026-09-17T09:17:57.151Z",
+          "customerId": "cmu5bgp5x0000quiz6mnto0mm",
+          "assignedToId": "cmu5bgjml0000qui8lovrfdd5",
+          "customer": {
+            "id": "cmu5bgp5x0000quiz6mnto0mm",
+            "name": "Cliente Demo 1789636666037",
+            "phone": "5511936666037",
+            "email": "demo.1789636666037@example.com",
+            "claroId": null,
+            "cpfCnpj": null,
+            "createdAt": "2026-09-17T09:17:45.958Z",
+            "updatedAt": "2026-09-17T09:17:45.958Z"
+          },
+          "assignedTo": {
+            "id": "cmu5bgjml0000qui8lovrfdd5",
+            "name": "Admin Claro",
+            "email": "admin@claro.com.br",
+            "role": "ADMIN"
+          },
+          "messages": [
+            {
+              "id": "cmu5bgp8n0004quizrw2s2nov",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "CUSTOMER",
+              "body": "Minha internet Claro esta lenta e preciso de suporte.",
+              "metadata": "{\"sourceChannel\":\"SITE\"}",
+              "authorUserId": null,
+              "createdAt": "2026-09-17T09:17:45.995Z"
+            },
+            {
+              "id": "cmu5bgwok0008quiz6o0s86ez",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "SYSTEM",
+              "body": "Chamado atribuído.",
+              "metadata": null,
+              "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+              "createdAt": "2026-09-17T09:17:55.700Z"
+            },
+            {
+              "id": "cmu5bgxsy000aquiz8rhfvbny",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "senderType": "AGENT",
+              "body": "Resposta do atendente 1789636666037: vamos verificar sua conexao.",
+              "metadata": "{\"sentToChannel\":false}",
+              "authorUserId": "cmu5bgjml0000qui8lovrfdd5",
+              "createdAt": "2026-09-17T09:17:57.151Z"
+            }
+          ],
+          "suggestions": [
+            {
+              "id": "cmu5bgw2y0006quiz1dcayf36",
+              "ticketId": "cmu5bgp6r0002quizsnepxl42",
+              "intent": "atendimento_geral",
+              "sentiment": "neutral",
+              "confidence": 0.72,
+              "suggestedReply": "Recebi sua solicitação. Vou analisar as informações e seguir com o atendimento pelo melhor caminho.",
+              "nextBestAction": "Revisar histórico do cliente, classificar motivo principal e responder no canal de origem.",
+              "createdAt": "2026-09-17T09:17:54.922Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tickets/metrics/summary",
+      "status": 200,
+      "response": {
+        "totalOpen": 1,
+        "aiTriaged": 0,
+        "closed": 1,
+        "urgent": 0,
+        "byChannel": [
+          {
+            "channel": "APP",
+            "count": 1
+          },
+          {
+            "channel": "SITE",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/integrations/ai/test",
+      "status": 200,
+      "response": {
+        "result": {
+          "intent": "atendimento_geral",
+          "priority": "MEDIUM",
+          "summary": "Cliente abriu uma solicitação geral que precisa de validação do atendente.",
+          "suggestedReply": "Recebi sua solicitação. Vou analisar as informações e seguir com o atendimento pelo melhor caminho.",
+          "nextBestAction": "Revisar histórico do cliente, classificar motivo principal e responder no canal de origem.",
+          "tags": [
+            "geral"
+          ],
+          "sentiment": "neutral",
+          "confidence": 0.72,
+          "shouldAutoReply": false,
+          "provider": "local-fallback",
+          "providerError": "A chave OpenAI respondeu, mas a conta está sem créditos disponíveis."
+        },
+        "provider": "local-fallback",
+        "providerError": "A chave OpenAI respondeu, mas a conta está sem créditos disponíveis."
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/integrations/status",
+      "status": 200
+    },
+    {
+      "check": "WebSocket autenticado recebeu atualizacoes",
+      "passed": true,
+      "count": 4
+    }
+  ],
+  "protocol": "CLARO-MU5BGP6O",
+  "passed": true
+}

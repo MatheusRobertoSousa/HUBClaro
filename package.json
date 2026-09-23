@@ -11,11 +11,13 @@
     "dev": "concurrently -n api,web -c red,cyan \"npm run dev:server\" \"npm run dev:web\"",
     "dev:server": "npm --workspace server run dev",
     "dev:web": "npm --workspace web run dev",
+    "start:azure": "npm --workspace server run start:azure",
     "tunnel:webhook": "npx localtunnel --port 3333 --local-host localhost",
     "build": "npm --workspaces run build",
     "lint": "npm --workspaces run lint",
     "db:setup": "npm --workspace server run db:setup",
     "prisma:generate": "npm --workspace server run prisma:generate",
+    "prisma:generate:azure": "npm --workspace server run prisma:generate:azure",
     "prisma:migrate": "npm --workspace server run prisma:migrate",
     "seed": "npm --workspace server run seed"
   },

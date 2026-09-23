@@ -1,6 +1,6 @@
 import type { Channel, Metrics, Ticket, TicketStatus, User } from "../types";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3333";
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:3333" : window.location.origin);
 const TOKEN_KEY = "claro_hub_ai_token";
 
 export type Session = {

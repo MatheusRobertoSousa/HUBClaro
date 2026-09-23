@@ -1,5 +1,14 @@
 # Claro HUB AI
 
+## Ambiente Azure
+
+- [Abrir HUB Claro](https://clarohub-matheus-156973.azurewebsites.net)
+- Login: `admin@claro.com.br`; senha da nuvem em `.azure-local/credentials.json`, campo `password` (arquivo ignorado pelo Git).
+- Demonstracao completa: `./scripts/verify-cloud.ps1`.
+- [Arquitetura e implementacao tecnica](docs/azure-implementation.md), [operacao e deploy](docs/azure-deployment.md), [roteiro da apresentacao](docs/roteiro-apresentacao.md).
+
+Frontend e API usam o mesmo App Service; os dados ficam no banco PostgreSQL `clarohub`. O `.env` abaixo configura o desenvolvimento local.
+
 HUB de convergencia de interfaces conversacionais para centralizar chamados vindos de WhatsApp, site e app, com triagem por IA e atendimento humano em um painel unico.
 
 ## Stack
@@ -78,6 +87,9 @@ No painel web, abra a aba `IA` para testar a chave OpenAI. Se a conta estiver se
 
 - [Arquitetura](docs/architecture.md)
 - [API](docs/api.md)
+- [Implementacao tecnica no Azure](docs/azure-implementation.md)
+- [Deploy no Azure for Students](docs/azure-deployment.md)
+- [Roteiro da apresentacao tecnica](docs/roteiro-apresentacao.md)
 
 ## Marca
 

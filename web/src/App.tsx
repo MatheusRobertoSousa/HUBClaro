@@ -80,7 +80,7 @@ export function App() {
 
 function LoginScreen({ onLogin }: { onLogin: (user: User) => void }) {
   const [email, setEmail] = useState("admin@claro.com.br");
-  const [password, setPassword] = useState("Claro@123");
+  const [password, setPassword] = useState(import.meta.env.DEV ? "Claro@123" : "");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
